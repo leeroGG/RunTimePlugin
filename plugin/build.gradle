@@ -1,0 +1,32 @@
+plugins {
+    // 如果是kotlin项目，有kotlin代码需要打包的，引用这个插件
+    id("org.jetbrains.kotlin.jvm")
+
+    id("java-gradle-plugin")
+    id("maven-publish")
+}
+
+gradlePlugin {
+    plugins {
+        RunTimePlugin {
+            id = 'RunTimePlugin'
+            implementationClass = 'com.custom.plugin.RunTimePlugin'
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = "com.custom.plugin"
+            artifactId = 'RunTimePlugin'
+            version = '1.0.16'
+            from components.java
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.android.tools.build:gradle:8.1.2'
+    implementation 'org.ow2.asm:asm-commons:9.4'
+}
